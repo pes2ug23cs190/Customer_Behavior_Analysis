@@ -1,0 +1,6 @@
+segment,customers,avg_purchase_amount,avg_previous_purchases,total_revenue_proxy,pct_of_customers,pct_of_revenue_proxy
+Loyal Customers,1323,69.76,31.63,92293,33.9,39.6
+Potential Loyalists,1673,54.71,21.81,91534,42.9,39.3
+Champions,313,83.97,40.67,26284,8.0,11.3
+At Risk,466,41.04,14.67,19126,11.9,8.2
+Low Value / Churn Risk,125,30.75,7.75,3844,3.2,1.6
