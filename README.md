@@ -19,6 +19,7 @@ An end-to-end data analytics project analyzing retail customer shopping behavior
 - [Key Business Questions & Results](#-key-business-questions--results)
 - [Dashboard](#-dashboard)
 - [Key Insights](#-key-insights)
+- [RFM Customer Segmentation](#-rfm-customer-segmentation)
 - [Business Recommendations](#-business-recommendations)
 - [Project Deliverables & Structure](#-project-deliverables--structure)
 - [How to Run](#-how-to-run)
@@ -64,7 +65,8 @@ Retail businesses generate large volumes of transaction data, but raw data alone
 ```
 Raw Dataset → Data Loading → Cleaning & Preprocessing → EDA
      → Feature Engineering → PostgreSQL → SQL Business Analysis
-     → Power BI Dashboard → Business Insights & Recommendations
+     → RFM Customer Segmentation → Power BI Dashboard
+     → Business Insights & Recommendations
 ```
 
 ---
@@ -91,7 +93,10 @@ Raw Dataset → Data Loading → Cleaning & Preprocessing → EDA
 ### 4. SQL Business Analysis
 Ten structured queries answering real business questions — see results below.
 
-### 5. Dashboard Development
+### 5. RFM Customer Segmentation
+Classified all customers into value tiers (Champions, Loyal, Potential Loyalists, At Risk, Low Value) using Recency, Frequency, and Monetary scoring — see [full section below](#-rfm-customer-segmentation).
+
+### 6. Dashboard Development
 Built an interactive Power BI dashboard with KPI cards, category/age breakdowns, and slicers.
 
 ---
@@ -134,6 +139,33 @@ The Power BI dashboard includes:
 - The majority (73%) of customers were **non-subscribers** — a clear growth opportunity.
 - **Express shipping** customers spent slightly more on average than Standard shipping customers.
 - **Loyal customers** (3,116) made up the largest segment by far, ahead of Returning (701) and New (83).
+- **RFM segmentation** shows Champions + Loyal Customers (~42% of customers) drive over 50% of purchase value, while At Risk + Low Value segments (~15% of customers) contribute under 10%.
+
+---
+
+## 🎯 RFM Customer Segmentation
+
+Extended the analysis with an **RFM (Recency, Frequency, Monetary)** segmentation to classify all 3,900 customers into actionable value tiers — going beyond descriptive EDA into behavior-based customer scoring.
+
+> **Note on Recency:** this dataset has no transaction date/timestamp, so a literal "days since last purchase" Recency could not be computed. `Frequency of Purchases` (e.g. "Weekly", "Annually") was used as a documented **recency proxy**, mapped to an estimated typical gap between purchases. Frequency and Monetary use the actual `previous_purchases` and `purchase_amount` fields.
+
+**Segments:**
+
+| Segment | Customers | % of Customers | % of Revenue | Avg. Purchase |
+|---|---|---|---|---|
+| Loyal Customers | 1,323 | 33.9% | 39.6% | $69.76 |
+| Potential Loyalists | 1,673 | 42.9% | 39.3% | $54.71 |
+| Champions | 313 | 8.0% | 11.3% | $83.97 |
+| At Risk | 466 | 11.9% | 8.2% | $41.04 |
+| Low Value / Churn Risk | 125 | 3.2% | 1.6% | $30.75 |
+
+![RFM Segments](rfm/rfm_segments_chart.png)
+
+**Key finding:** Champions and Loyal Customers together are ~42% of the customer base but drive over **50% of total purchase value** — while the bottom two segments (At Risk + Low Value) are 15% of customers but under 10% of revenue. This is a clear signal for where retention and marketing spend should be prioritized.
+
+Implementation available in both [`rfm/rfm_segmentation.py`](rfm/rfm_segmentation.py) (pandas) and [`rfm/rfm_segmentation.sql`](rfm/rfm_segmentation.sql) (PostgreSQL, using `NTILE()` window functions).
+
+---
 
 ## 💡 Business Recommendations
 
@@ -142,6 +174,7 @@ The Power BI dashboard includes:
 - Reward loyal customers with exclusive discounts/loyalty programs.
 - Promote highly-rated products (Gloves, Sandals, Boots) to drive engagement.
 - Use the New/Returning/Loyal segmentation for personalized campaigns.
+- Prioritize retention spend on **Champions and At Risk** segments identified via RFM — Champions to protect high-value revenue, At Risk to prevent churn before it happens.
 
 ---
 
@@ -156,6 +189,12 @@ Customer-Shopping-Behavior-Analysis/
 │   └── customer_shopping_behavior.ipynb
 ├── sql/
 │   └── business_queries.sql
+├── rfm/
+│   ├── rfm_segmentation.py
+│   ├── rfm_segmentation.sql
+│   ├── rfm_segments.csv
+│   ├── rfm_segment_summary.csv
+│   └── rfm_segments_chart.png
 ├── powerbi/
 │   └── customer_dashboard.pbix
 ├── report/
