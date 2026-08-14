@@ -116,7 +116,7 @@ Built an interactive Power BI dashboard with KPI cards, category/age breakdowns,
 | 9 | Do repeat buyers (>5 purchases) subscribe more? | No — 2,518 non-subscribers vs 958 subscribers among repeat buyers |
 | 10 | Revenue by age group | Young Adult: $62,143 · Middle-aged: $59,197 · Adult: $55,978 · Senior: $55,763 |
 
-Full query text is available in [`sql/business_queries.sql`](sql/business_queries.sql).
+Full query text is available in [`queriessss.sql`](queriessss.sql).
 
 ---
 
@@ -128,7 +128,7 @@ The Power BI dashboard includes:
 - Subscription status donut chart
 - Interactive slicers: subscription status, gender, category, shipping type
 
-*(Full dashboard walkthrough and screenshots are included in the [Project Report](report/Project_Report.pdf).)*
+*(Full dashboard walkthrough and screenshots are included in the [Project Report](Customer_analysis_finall_report.pdf), with presentation slides in [Customer-Shopping-Behavior-Analysis.pdf](Customer-Shopping-Behavior-Analysis.pdf).)*
 
 ---
 
@@ -177,32 +177,25 @@ Implementation available in both [`rfm/rfm_segmentation.py`](rfm/rfm_segmentatio
 - Prioritize retention spend on **Champions and At Risk** segments identified via RFM — Champions to protect high-value revenue, At Risk to prevent churn before it happens.
 
 ---
-
 ## 📄 Project Deliverables & Structure
 
 ```
-Customer-Shopping-Behavior-Analysis/
+Customer_Behavior_Analysis/
 │
-├── data/
-│   └── customer_shopping_behavior.csv
-├── notebooks/
-│   └── customer_shopping_behavior.ipynb
-├── sql/
-│   └── business_queries.sql
 ├── rfm/
 │   ├── rfm_segmentation.py
 │   ├── rfm_segmentation.sql
 │   ├── rfm_segments.csv
 │   ├── rfm_segment_summary.csv
 │   └── rfm_segments_chart.png
-├── powerbi/
-│   └── customer_dashboard.pbix
-├── report/
-│   └── Project_Report.pdf
-├── presentation/
-│   └── Project_Presentation.pdf
-├── README.md
-└── requirements.txt
+├── customer_shopping_behavior.csv           # Raw dataset
+├── customers_retail_behavior.ipynb          # Data cleaning, EDA, feature engineering
+├── queriessss.sql                            # SQL business analysis queries
+├── Customer_Behavior_dashboard.pbix         # Power BI dashboard
+├── Customer_analysis_finall_report.pdf      # Final written report
+├── Customer-Shopping-Behavior-Analysis.pdf  # Presentation slides
+├── requirements.txt                         # Python dependencies
+└── README.md
 ```
 
 ---
@@ -210,34 +203,33 @@ Customer-Shopping-Behavior-Analysis/
 ## 🚀 How to Run
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/customer-shopping-behavior-analysis.git
-   cd customer-shopping-behavior-analysis
-   ```
+```bash
+   git clone https://github.com/pes2ug23cs190/Customer_Behavior_Analysis.git
+   cd Customer_Behavior_Analysis
+```
 
 2. **Install dependencies**
-   ```bash
+```bash
    pip install -r requirements.txt
    # or individually:
    pip install pandas sqlalchemy psycopg2-binary
-   ```
+```
 
 3. **Set up PostgreSQL**
    - Create a database (e.g. `customer_behavior`).
    - Update the connection details (`username`, `password`, `host`, `port`, `database`) in the notebook.
 
 4. **Run the notebook**
-   - Open `notebooks/customer_shopping_behavior.ipynb` in Jupyter.
+   - Open `customers_retail_behavior.ipynb` in Jupyter.
    - Run all cells to clean the data and load it into PostgreSQL (`to_sql()`).
 
 5. **Run the SQL analysis**
-   - Open `sql/business_queries.sql` in pgAdmin (or your SQL client of choice) and execute against the `customer` table.
+   - Open `queriessss.sql` in pgAdmin (or your SQL client of choice) and execute against the `customer` table.
 
 6. **Explore the dashboard**
-   - Open `powerbi/customer_dashboard.pbix` in Power BI Desktop.
+   - Open `Customer_Behavior_dashboard.pbix` in Power BI Desktop.
 
----
-
+   
 ## 👨‍💻 Author
 
 **Favaz Ahmed**
