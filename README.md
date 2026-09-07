@@ -177,6 +177,28 @@ Implementation available in both [`rfm/rfm_segmentation.py`](rfm/rfm_segmentatio
 - Prioritize retention spend on **Champions and At Risk** segments identified via RFM — Champions to protect high-value revenue, At Risk to prevent churn before it happens.
 
 ---
+
+## 🤖 Retail Insights Assistant (RAG)
+
+A Retrieval-Augmented Generation (RAG) assistant that lets a stakeholder ask natural-language questions about this analysis and get answers grounded in the project's own findings — not general knowledge.
+
+**How it works:** the README's sections and the RFM segment summary are chunked and embedded locally with `sentence-transformers`, stored in a `Chroma` vector database, and retrieved by semantic similarity at query time. The top matching chunks are passed to Gemini (`gemini-2.5-flash`) with strict instructions to answer only from that retrieved context and to cite the source section — if a question isn't covered by the analysis, the assistant says so explicitly instead of guessing.
+
+**Example:**
+> **Q: Which customer segment should marketing prioritize?**
+> A: Champions and Loyal Customers together make up about 42% of customers but drive over 50% of total purchase value — Champions should be protected with retention-focused offers, while Loyal Customers are strong candidates for upsell campaigns.
+> *Source: RFM Customer Segmentation, RFM Segment Summary — Champions*
+
+Asking something outside the analysis (e.g. "What's the capital of France?") correctly returns *"This isn't covered in my project analysis"* rather than a hallucinated answer — the whole point of grounding generation in retrieval instead of the model's general knowledge.
+
+**To run it:**
+```bash
+python build_index.py        # one-time: builds the vector index from README.md + RFM data
+streamlit run rag_app.py     # launches the Q&A web interface
+```
+Requires a free `GEMINI_API_KEY` (see `.env.example`) — get one at [Google AI Studio](https://aistudio.google.com/apikey), no credit card needed.
+
+---
 ## 📄 Project Deliverables & Structure
 
 ```
