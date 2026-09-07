@@ -40,7 +40,7 @@ order by total_revenue,avg_spend desc;
 
 --Q6. Which 5 products have the highest percentage of purchases with discounts applied?
 select item_purchased,
-ROUND(100 * SUM(CASE WHEN discount_applied ='Yes' THEN 1 ELSE 0 END)/COUNT(*),2) AS discount_rate
+ROUND(100.0 * SUM(CASE WHEN discount_applied ='Yes' THEN 1 ELSE 0 END)/COUNT(*),2) AS discount_rate
 from customer
 group by item_purchased
 order by discount_rate desc
