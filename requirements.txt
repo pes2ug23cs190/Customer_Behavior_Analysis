@@ -1,7 +1,7 @@
-pandas
-numpy
-matplotlib
-sqlalchemy
-psycopg2-binary
-jupyter
-python-dotenv
+pandas==3.0.2
+numpy==2.4.4
+matplotlib==3.10.9
+sqlalchemy==2.0.52
+psycopg2-binary==2.9.12
+jupyter==1.1.1
+python-dotenv==1.2.2
